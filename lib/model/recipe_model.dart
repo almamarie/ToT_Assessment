@@ -21,7 +21,7 @@ class RecipeModel {
     required this.ingredents,
   });
 
-  int id;
+  int? id;
   String title;
   String category;
   double rate;

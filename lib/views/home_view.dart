@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/controller/recipe_manager.dart';
 import 'package:recipe_app/model/recipe_model.dart' as recipe_model;
+import 'package:recipe_app/views/bookmark_view.dart';
 import 'package:recipe_app/views/detail_view_example.dart';
+import 'package:recipe_app/views/notification_view.dart';
+import 'package:recipe_app/views/settings_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -12,6 +15,12 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _currentIndex = 0;
+
+    final List<Widget> _views = [
+    const BookmarkView(),
+    const NotificationView(),
+    const SettingsView(),
+];
   final PageController _pageController =
       PageController(viewportFraction: 0.9, initialPage: 0);
   final RecipeManager _recipeManager = RecipeManager();
@@ -137,7 +146,9 @@ class _HomeViewState extends State<HomeView> {
                       return GestureDetector(
                         onTap: () {
                           //TODO: PASS RECIPE DATA TO DETAILS VIEW
-                      
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) =>
+                                  DetialViewExample(recipe: model)));
                         },
                         child: Container(
                           margin: const EdgeInsets.only(right: 10),
@@ -167,7 +178,8 @@ class _HomeViewState extends State<HomeView> {
                                         children: [
                                           //TODO: PASS THE RIGHT TITLE DATA TO TEXT WIDGET
                                           Text(
-                                            "recipe title here",
+                                            //snapshot.data![index]['title'].toString(), // "recipe title here",
+                                            model.title,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5!
@@ -210,12 +222,14 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       );
                     },
-                    itemCount:1000, //TODO: PASS THE RIGHT LENGTH TO ITEM COUNT
+                    itemCount: snapshot.data
+                        ?.length, //TODO: PASS THE RIGHT LENGTH TO ITEM COUNT
                   ),
                 );
               })
         ],
       ),
+      
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         currentIndex: _currentIndex,

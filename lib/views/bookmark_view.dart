@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 //TODO: DELETE RECIPE
 
 class BookmarkView extends StatelessWidget {
-  const BookmarkView({ Key? key }) : super(key: key);
+  const BookmarkView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

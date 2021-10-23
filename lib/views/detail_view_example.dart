@@ -1,9 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:recipe_app/model/recipe_model.dart';
+import 'package:recipe_app/views/video_player_view.dart';
+
+import 'bookmark_view.dart';
 
 class DetialViewExample extends StatelessWidget {
-  const DetialViewExample({Key? key}) : super(key: key);
+  DetialViewExample({Key? key, required this.recipe}) : super(key: key);
+  RecipeModel recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +39,19 @@ class DetialViewExample extends StatelessWidget {
               children: [
                 const Spacer(),
                 const Spacer(),
-                 CircleAvatar(
+                CircleAvatar(
                   backgroundColor: Colors.amber,
-                  child: Icon(
-                    Icons.play_arrow,
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    size: 60,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) =>
+                              VideoPlayerView(videoUrl: recipe.video)));
+                    },
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      size: 60,
+                    ),
                   ),
                   radius: 40,
                 ),
@@ -48,7 +60,8 @@ class DetialViewExample extends StatelessWidget {
                   height: 10,
                 ),
                 Card(
-                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(.6),
+                  color:
+                      Theme.of(context).scaffoldBackgroundColor.withOpacity(.6),
                   elevation: 0,
                   margin: const EdgeInsets.all(24),
                   shape: RoundedRectangleBorder(
@@ -71,7 +84,7 @@ class DetialViewExample extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Title here',
+                          recipe.title,
                           style: Theme.of(context)
                               .textTheme
                               .headline5!
@@ -97,12 +110,16 @@ class DetialViewExample extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Card(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25)),
                           elevation: 0,
-                          color: Theme.of(context).scaffoldBackgroundColor.withOpacity(.6),
+                          color: Theme.of(context)
+                              .scaffoldBackgroundColor
+                              .withOpacity(.6),
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Column(
@@ -120,9 +137,8 @@ class DetialViewExample extends StatelessWidget {
                                     const Spacer(),
                                     Text(
                                       '270 gr',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
                                     ),
                                   ],
                                 ),
@@ -142,9 +158,8 @@ class DetialViewExample extends StatelessWidget {
                                     const Spacer(),
                                     Text(
                                       '1 sachet',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
                                     ),
                                   ],
                                 ),
@@ -164,9 +179,8 @@ class DetialViewExample extends StatelessWidget {
                                     const Spacer(),
                                     Text(
                                       '1 sachet',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
                                     ),
                                   ],
                                 ),
@@ -186,9 +200,8 @@ class DetialViewExample extends StatelessWidget {
                                     const Spacer(),
                                     Text(
                                       '1 sachet',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
                                     ),
                                   ],
                                 ),
@@ -208,9 +221,8 @@ class DetialViewExample extends StatelessWidget {
                                     const Spacer(),
                                     Text(
                                       '1 sachet',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
                                     ),
                                   ],
                                 )
@@ -232,11 +244,9 @@ class DetialViewExample extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Material(
-                        shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              side:
-                                  BorderSide(color: Colors.grey.shade300)),
-             
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          side: BorderSide(color: Colors.grey.shade300)),
                       color: Theme.of(context).scaffoldBackgroundColor,
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
@@ -244,7 +254,10 @@ class DetialViewExample extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => const BookmarkView()));
+                      },
                       child: const Padding(
                         padding: EdgeInsets.all(12.0),
                         child: Icon(Icons.bookmark_border_outlined),
@@ -254,8 +267,7 @@ class DetialViewExample extends StatelessWidget {
                               Theme.of(context).scaffoldBackgroundColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
-                              side:
-                                  BorderSide(color: Colors.grey.shade300))),
+                              side: BorderSide(color: Colors.grey.shade300))),
                     )
                   ],
                 ),
