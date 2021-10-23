@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:recipe_app/model/recipe_model.dart';
+import 'package:recipe_app/controller/bookmark_controller.dart';
 import 'package:recipe_app/views/video_player_view.dart';
 
 import 'bookmark_view.dart';
@@ -9,6 +10,9 @@ import 'bookmark_view.dart';
 class DetialViewExample extends StatelessWidget {
   DetialViewExample({Key? key, required this.recipe}) : super(key: key);
   RecipeModel recipe;
+  final BookmarkController bookmarkController = BookmarkController();
+
+  double? rate;
 
   @override
   Widget build(BuildContext context) {
@@ -254,9 +258,8 @@ class DetialViewExample extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) => const BookmarkView()));
+                      onPressed: () async {
+                        await bookmarkController.addBookmark(recipe);
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(12.0),
